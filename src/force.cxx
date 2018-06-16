@@ -180,7 +180,7 @@ namespace
         // use an upwind differentiation
         for (int k=kstart; k<kend; ++k)
         {
-            if (wls[k] > 0.)
+            if (wls[k] > TF(0.))
             {
                 for (int j=jstart; j<jend; ++j)
                     for (int i=istart; i<iend; ++i)
