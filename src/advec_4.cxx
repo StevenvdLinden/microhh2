@@ -68,10 +68,10 @@ namespace
     
         TF cfl = 0;
     
-        for (int k=kstart; k<kend; k++)
-            for (int j=jstart; j<jend; j++)
+        for (int k=kstart; k<kend; ++k)
+            for (int j=jstart; j<jend; ++j)
                 #pragma ivdep
-                for (int i=istart; i<iend; i++)
+                for (int i=istart; i<iend; ++i)
                 {
                     const int ijk = i + j*jj1 + k*kk1;
                     cfl = std::max(cfl, std::abs(ci0<TF>*u[ijk-ii1] + ci1<TF>*u[ijk] + ci2<TF>*u[ijk+ii1] + ci3<TF>*u[ijk+ii2])*dxi 
@@ -108,9 +108,9 @@ namespace
         const TF dyi = TF(1.)/dy;
     
         // bottom boundary
-        for (int j=jstart; j<jend; j++)
+        for (int j=jstart; j<jend; ++j)
             #pragma ivdep
-            for (int i=istart; i<iend; i++)
+            for (int i=istart; i<iend; ++i)
             {
                 const int ijk = i + j*jj1 + kstart*kk1;
                 ut[ijk] -= ( cg0<TF>*((ci0<TF>*u[ijk-ii3] + ci1<TF>*u[ijk-ii2] + ci2<TF>*u[ijk-ii1] + ci3<TF>*u[ijk    ]) * (ci0<TF>*u[ijk-ii3] + ci1<TF>*u[ijk-ii2] + ci2<TF>*u[ijk-ii1] + ci3<TF>*u[ijk    ]))
@@ -133,10 +133,10 @@ namespace
                          * dzi4[kstart];
             }
     
-        for (int k=kstart+1; k<kend-1; k++)
-            for (int j=jstart; j<jend; j++)
+        for (int k=kstart+1; k<kend-1; ++k)
+            for (int j=jstart; j<jend; ++j)
                 #pragma ivdep
-                for (int i=istart; i<iend; i++)
+                for (int i=istart; i<iend; ++i)
                 {
                     const int ijk = i + j*jj1 + k*kk1;
                     ut[ijk] -= ( cg0<TF>*((ci0<TF>*u[ijk-ii3] + ci1<TF>*u[ijk-ii2] + ci2<TF>*u[ijk-ii1] + ci3<TF>*u[ijk    ]) * (ci0<TF>*u[ijk-ii3] + ci1<TF>*u[ijk-ii2] + ci2<TF>*u[ijk-ii1] + ci3<TF>*u[ijk    ]))
@@ -160,9 +160,9 @@ namespace
                 }
     
         // top boundary
-        for (int j=jstart; j<jend; j++)
+        for (int j=jstart; j<jend; ++j)
             #pragma ivdep
-            for (int i=istart; i<iend; i++)
+            for (int i=istart; i<iend; ++i)
             {
                 const int ijk = i + j*jj1 + (kend-1)*kk1;
                 ut[ijk] -= ( cg0<TF>*((ci0<TF>*u[ijk-ii3] + ci1<TF>*u[ijk-ii2] + ci2<TF>*u[ijk-ii1] + ci3<TF>*u[ijk    ]) * (ci0<TF>*u[ijk-ii3] + ci1<TF>*u[ijk-ii2] + ci2<TF>*u[ijk-ii1] + ci3<TF>*u[ijk    ]))
@@ -208,9 +208,9 @@ namespace
         const TF dyi = TF(1.)/dy;
     
         // bottom boundary
-        for (int j=jstart; j<jend; j++)
+        for (int j=jstart; j<jend; ++j)
             #pragma ivdep
-            for (int i=istart; i<iend; i++)
+            for (int i=istart; i<iend; ++i)
             {
                 const int ijk = i + j*jj1 + kstart*kk1;
                 vt[ijk] -= ( cg0<TF>*((ci0<TF>*u[ijk-ii1-jj2] + ci1<TF>*u[ijk-ii1-jj1] + ci2<TF>*u[ijk-ii1] + ci3<TF>*u[ijk-ii1+jj1]) * (ci0<TF>*v[ijk-ii3] + ci1<TF>*v[ijk-ii2] + ci2<TF>*v[ijk-ii1] + ci3<TF>*v[ijk    ]))
@@ -233,10 +233,10 @@ namespace
                          * dzi4[kstart];
             }
     
-        for (int k=kstart+1; k<kend-1; k++)
-            for (int j=jstart; j<jend; j++)
+        for (int k=kstart+1; k<kend-1; ++k)
+            for (int j=jstart; j<jend; ++j)
                 #pragma ivdep
-                for (int i=istart; i<iend; i++)
+                for (int i=istart; i<iend; ++i)
                 {
                     const int ijk = i + j*jj1 + k*kk1;
                     vt[ijk] -= ( cg0<TF>*((ci0<TF>*u[ijk-ii1-jj2] + ci1<TF>*u[ijk-ii1-jj1] + ci2<TF>*u[ijk-ii1] + ci3<TF>*u[ijk-ii1+jj1]) * (ci0<TF>*v[ijk-ii3] + ci1<TF>*v[ijk-ii2] + ci2<TF>*v[ijk-ii1] + ci3<TF>*v[ijk    ]))
@@ -260,9 +260,9 @@ namespace
                 }
     
         // top boundary
-        for (int j=jstart; j<jend; j++)
+        for (int j=jstart; j<jend; ++j)
             #pragma ivdep
-            for (int i=istart; i<iend; i++)
+            for (int i=istart; i<iend; ++i)
             {
                 const int ijk = i + j*jj1 + (kend-1)*kk1;
                 vt[ijk] -= ( cg0<TF>*((ci0<TF>*u[ijk-ii1-jj2] + ci1<TF>*u[ijk-ii1-jj1] + ci2<TF>*u[ijk-ii1] + ci3<TF>*u[ijk-ii1+jj1]) * (ci0<TF>*v[ijk-ii3] + ci1<TF>*v[ijk-ii2] + ci2<TF>*v[ijk-ii1] + ci3<TF>*v[ijk    ]))
@@ -308,9 +308,9 @@ namespace
         const TF dyi = TF(1.)/dy;
     
         // bottom boundary
-        for (int j=jstart; j<jend; j++)
+        for (int j=jstart; j<jend; ++j)
             #pragma ivdep
-            for (int i=istart; i<iend; i++)
+            for (int i=istart; i<iend; ++i)
             {
                 const int ijk = i + j*jj1 + (kstart+1)*kk1;
                 wt[ijk] -= ( cg0<TF>*((ci0<TF>*u[ijk-ii1-kk2] + ci1<TF>*u[ijk-ii1-kk1] + ci2<TF>*u[ijk-ii1] + ci3<TF>*u[ijk-ii1+kk1]) * (ci0<TF>*w[ijk-ii3] + ci1<TF>*w[ijk-ii2] + ci2<TF>*w[ijk-ii1] + ci3<TF>*w[ijk    ]))
@@ -333,10 +333,10 @@ namespace
                          * dzhi4[kstart+1];
             }
     
-        for (int k=kstart+2; k<kend-1; k++)
-            for (int j=jstart; j<jend; j++)
+        for (int k=kstart+2; k<kend-1; ++k)
+            for (int j=jstart; j<jend; ++j)
                 #pragma ivdep
-                for (int i=istart; i<iend; i++)
+                for (int i=istart; i<iend; ++i)
                 {
                     const int ijk = i + j*jj1 + k*kk1;
                     wt[ijk] -= ( cg0<TF>*((ci0<TF>*u[ijk-ii1-kk2] + ci1<TF>*u[ijk-ii1-kk1] + ci2<TF>*u[ijk-ii1] + ci3<TF>*u[ijk-ii1+kk1]) * (ci0<TF>*w[ijk-ii3] + ci1<TF>*w[ijk-ii2] + ci2<TF>*w[ijk-ii1] + ci3<TF>*w[ijk    ]))
@@ -360,9 +360,9 @@ namespace
                 }
     
         // top boundary
-        for (int j=jstart; j<jend; j++)
+        for (int j=jstart; j<jend; ++j)
             #pragma ivdep
-            for (int i=istart; i<iend; i++)
+            for (int i=istart; i<iend; ++i)
             {
                 const int ijk = i + j*jj1 + (kend-1)*kk1;
                 wt[ijk] -= ( cg0<TF>*((ci0<TF>*u[ijk-ii1-kk2] + ci1<TF>*u[ijk-ii1-kk1] + ci2<TF>*u[ijk-ii1] + ci3<TF>*u[ijk-ii1+kk1]) * (ci0<TF>*w[ijk-ii3] + ci1<TF>*w[ijk-ii2] + ci2<TF>*w[ijk-ii1] + ci3<TF>*w[ijk    ]))
@@ -408,9 +408,9 @@ namespace
         const TF dyi = TF(1.)/dy;
     
         // bottom boundary
-        for (int j=jstart; j<jend; j++)
+        for (int j=jstart; j<jend; ++j)
             #pragma ivdep
-            for (int i=istart; i<iend; i++)
+            for (int i=istart; i<iend; ++i)
             {
                 const int ijk = i + j*jj1 + kstart*kk1;
                 st[ijk] -= ( cg0<TF>*(u[ijk-ii1] * (ci0<TF>*s[ijk-ii3] + ci1<TF>*s[ijk-ii2] + ci2<TF>*s[ijk-ii1] + ci3<TF>*s[ijk    ]))
@@ -433,10 +433,10 @@ namespace
                          * dzi4[kstart];
             }
     
-        for (int k=kstart+1; k<kend-1; k++)
-            for (int j=jstart; j<jend; j++)
+        for (int k=kstart+1; k<kend-1; ++k)
+            for (int j=jstart; j<jend; ++j)
                 #pragma ivdep
-                for (int i=istart; i<iend; i++)
+                for (int i=istart; i<iend; ++i)
                 {
                     const int ijk = i + j*jj1 + k*kk1;
                     st[ijk] -= ( cg0<TF>*(u[ijk-ii1] * (ci0<TF>*s[ijk-ii3] + ci1<TF>*s[ijk-ii2] + ci2<TF>*s[ijk-ii1] + ci3<TF>*s[ijk    ]))
@@ -460,9 +460,9 @@ namespace
                 }
     
         // top boundary
-        for (int j=jstart; j<jend; j++)
+        for (int j=jstart; j<jend; ++j)
             #pragma ivdep
-            for (int i=istart; i<iend; i++)
+            for (int i=istart; i<iend; ++i)
             {
                 const int ijk = i + j*jj1 + (kend-1)*kk1;
                 st[ijk] -= ( cg0<TF>*(u[ijk-ii1] * (ci0<TF>*s[ijk-ii3] + ci1<TF>*s[ijk-ii2] + ci2<TF>*s[ijk-ii1] + ci3<TF>*s[ijk    ]))
