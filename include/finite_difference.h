@@ -1,8 +1,8 @@
 /*
  * MicroHH
- * Copyright (c) 2011-2017 Chiel van Heerwaarden
- * Copyright (c) 2011-2017 Thijs Heus
- * Copyright (c) 2014-2017 Bart van Stratum
+ * Copyright (c) 2011-2018 Chiel van Heerwaarden
+ * Copyright (c) 2011-2018 Thijs Heus
+ * Copyright (c) 2014-2018 Bart van Stratum
  *
  * This file is part of MicroHH
  *
@@ -20,7 +20,7 @@
  * along with MicroHH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FINITE_DIFFERENCE
+#ifndef FINITE_DIFFERENCE_H
 
 // In case the code is compiled with NVCC, add the macros for CUDA
 #ifdef __CUDACC__
@@ -105,6 +105,22 @@ namespace Finite_difference
         CUDA_MACRO inline TF interp4t(const TF a, const TF b, const TF c, const TF d)
         {
             return ti0<TF>*a + ti1<TF>*b + ti2<TF>*c + ti3<TF>*d;
+        }
+
+        template<typename TF>
+        CUDA_MACRO inline TF interp4_ws(const TF a, const TF b, const TF c, const TF d) 
+        {
+            constexpr TF c0 = TF(7./12.);
+            constexpr TF c1 = TF(1./12.);
+            return c0*(b+c) - c1*(a+d);
+        }
+
+        template<typename TF>
+        CUDA_MACRO inline TF interp3_ws(const TF a, const TF b, const TF c, const TF d) 
+        {
+            constexpr TF c0 = TF(3./12.);
+            constexpr TF c1 = TF(1./12.);
+            return c0*(c-b) - c1*(d-a);
         }
 
         template<typename TF>
